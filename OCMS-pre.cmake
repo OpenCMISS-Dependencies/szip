@@ -1,0 +1,17 @@
+# caution: in src/CMakeLists.txt:62 added "INCLUDES DESTINATION ${SZIP_INSTALL_INCLUDE_DIR}"
+
+set(SZIP_EXTERNALLY_CONFIGURED YES)
+
+if (SZIP_EXTERNALLY_CONFIGURED)
+    set(SZIP_INSTALL_BIN_DIR bin)
+    set(SZIP_INSTALL_LIB_DIR lib)
+    set(SZIP_INSTALL_INCLUDE_DIR include)
+    set(SZIP_INSTALL_DATA_DIR include)
+    if (NOT CMAKE_BUILD_TYPE MATCHES DEBUG)
+        set(SZIP_INSTALL_NO_DEVELOPMENT YES)
+    endif()
+    #if (BUILD_TESTS)
+        set(BUILD_TESTING ON)
+    #endif()
+    set(SZIP_EXPORTED_TARGETS szip-config)
+endif()

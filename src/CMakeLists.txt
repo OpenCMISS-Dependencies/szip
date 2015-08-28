@@ -1,5 +1,6 @@
 cmake_minimum_required (VERSION 2.8)
-PROJECT (SZIP_SRC C)
+cmake_policy(SET CMP0048 NEW)
+PROJECT (SZIP_SRC LANGUAGES C VERSION 2.1)
 
 #-----------------------------------------------------------------------------
 # Setup include Directories
@@ -46,7 +47,6 @@ INSTALL (
     COMPONENT
         headers
 )
-
 #-----------------------------------------------------------------------------
 # Add Target(s) to CMake Install for import into other projects
 #-----------------------------------------------------------------------------
@@ -59,5 +59,6 @@ IF (SZIP_EXPORTED_TARGETS)
       LIBRARY DESTINATION ${SZIP_INSTALL_LIB_DIR} COMPONENT libraries
       ARCHIVE DESTINATION ${SZIP_INSTALL_LIB_DIR} COMPONENT libraries
       RUNTIME DESTINATION ${SZIP_INSTALL_BIN_DIR} COMPONENT libraries
+      INCLUDES DESTINATION ${SZIP_INSTALL_INCLUDE_DIR}
   )
 ENDIF (SZIP_EXPORTED_TARGETS)
