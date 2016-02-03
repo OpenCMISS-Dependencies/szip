@@ -36,6 +36,16 @@ TARGET_LINK_LIBRARIES (${SZIP_LIB_TARGET} ${LINK_LIBS})
 SET_GLOBAL_VARIABLE (SZIP_LIBRARIES_TO_EXPORT ${SZIP_LIB_TARGET})
 SZIP_SET_LIB_OPTIONS (${SZIP_LIB_TARGET} ${SZIP_LIB_NAME} ${LIB_TYPE})
 
+if (MSVC)
+    set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS} /GS /TC /analyze- /wd\"4996\" /Gy /Zc:wchar_t /Zi /Gm- /O2 /fp:precise /errorReport:prompt /WX- /Zc:forScope /Gd /Oy- /Oi /EHsc /nologo")
+    target_compile_definitions(${SZIP_LIB_TARGET} PUBLIC
+        $<BUILD_INTERFACE:_LIB>
+        $<BUILD_INTERFACE:_UNICODE>
+        $<BUILD_INTERFACE:UNICODE>
+        $<BUILD_INTERFACE:_LIB>
+    )
+endif()
+
 #-----------------------------------------------------------------------------
 # Add file(s) to CMake Install 
 #-----------------------------------------------------------------------------

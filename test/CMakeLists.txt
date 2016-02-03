@@ -23,20 +23,9 @@ TARGET_LINK_LIBRARIES (${SZIP_TEST_LIB_TARGET} ${SZIP_LIB_TARGET})
 SZIP_SET_LIB_OPTIONS (${SZIP_TEST_LIB_TARGET} ${SZIP_TEST_LIB_NAME} ${LIB_TYPE})
 
 #-- Adding test 
-IF (SZIP_ENABLE_ENCODING)
-  ADD_EXECUTABLE (gentest gentest.c)
-  TARGET_NAMING (gentest)
-  IF (WIN32)
-    IF (MSVC)
-      IF (NOT BUILD_SHARED_LIBS)
-        SET_TARGET_PROPERTIES (gentest
-            PROPERTIES
-                LINK_FLAGS "/NODEFAULTLIB:MSVCRT"
-        ) 
-      ENDIF (NOT BUILD_SHARED_LIBS)
-    ENDIF (MSVC)
-  ENDIF (WIN32)
-  TARGET_LINK_LIBRARIES (gentest ${SZIP_TEST_LIB_TARGET} ${SZIP_LIB_TARGET})
-
-  ADD_TEST (NAME gentest COMMAND $<TARGET_FILE:gentest>)
-ENDIF (SZIP_ENABLE_ENCODING)
+if(SZIP_ENABLE_ENCODING)
+  add_executable(gentest gentest.c)
+  TARGET_NAMING(gentest)
+  target_link_libraries (gentest ${SZIP_TEST_LIB_TARGET} ${SZIP_LIB_TARGET})
+  add_test(NAME gentest COMMAND $<TARGET_FILE:gentest>)
+endif()
